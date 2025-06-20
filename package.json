@@ -1,5 +1,5 @@
 {
-  "name": "application-portal",
+  "name": "next-js-mongo-passport-template",
   "version": "1.0.0",
   "description": "Application for managing functions, including messages, from various outside applications",
   "main": "server.js",
@@ -15,22 +15,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nick-ramsay/application-portal.git"
+    "url": "git+https://github.com/nick-ramsay/next-js-mongo-passport-template.git"
   },
   "author": "Nick Ramsay",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nick-ramsay/application-portal/issues"
+    "url": "https://github.com/nick-ramsay/next-js-mongo-passport-template/issues"
   },
-  "homepage": "https://github.com/nick-ramsay/application-portal#readme",
+  "homepage": "https://github.com/nick-ramsay/next-js-mongo-passport-template#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "concurrently": "^5.2.0",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "googleapis": "^150.0.1",
     "if-env": "^1.0.4",
     "js-sha256": "^0.9.0",
     "mongoose": "^5.9.25",

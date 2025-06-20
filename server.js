@@ -5,7 +5,7 @@ require("dotenv").config();
 const keys = require("./keys");
 
 const mongoose = require("mongoose");
-//const routes = require("./routes");
+const routes = require("./routes");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -34,7 +34,7 @@ app.use(function (req, res, next) {
 
 
 // Add routes, both API and view
-//app.use(routes);
+app.use(routes);
 
 // Connect to the Mongo DB
 const connection = (process.env.NODE_ENV === "production" ? process.env.mongo_uri : process.env.mongo_uri);
