@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import API from "../utils/API";
 import { sha256 } from 'js-sha256';
 
+
 export default function CreateAccount() {
   const [verificationCode, setVerificationCode] = useState("");
   const [firstName, setFirstName] = useState("");

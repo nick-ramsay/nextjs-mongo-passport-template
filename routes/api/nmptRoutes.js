@@ -1,5 +1,24 @@
-const router = require("express").Router();
+const express = require('express');
+const router = express.Router();
 const nmptController = require("../../controllers/nmptController");
+
+// Middleware to ensure user is authenticated
+const requireAuth = (req, res, next) => {
+  console.log(req);
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.status(401).json({ message: 'Authentication required' });
+};
+
+
+//AUTHENTICATION_ROUTES START
+
+router.post('/login', nmptController.login);
+router.post('/logout', nmptController.logout);
+
+//AUTHENTICATION_ROUTES END
+
 
 router
   .route("/send-email")
@@ -28,21 +47,5 @@ router
 router
   .route("/reset-password")
   .post(nmptController.resetPassword);
-
-router
-  .route("/reset-login")
-  .post(nmptController.login);
-
-router
-  .route("/set-session-access-token")
-  .post(nmptController.setSessionAccessToken);
-
-router
-  .route("/fetch-account-details")
-  .post(nmptController.fetchAccountDetails);
-
-router
-  .route("/test-backend-token")
-  .post(nmptController.testBackendToken);
 
 module.exports = router;

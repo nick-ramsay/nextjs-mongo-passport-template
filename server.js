@@ -1,53 +1,54 @@
-const express = require("express");
-const cookieParser = require('cookie-parser');
-require("dotenv").config();
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const session = require('express-session');
+const cors = require('cors');
+const routes = require("./routes")
 
-const keys = require("./keys");
-
-const mongoose = require("mongoose");
-const routes = require("./routes");
-
-const PORT = process.env.PORT || 3001;
 const app = express();
+const PORT = process.env.PORT || 3001;
 
-// Define middleware here
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
+// Middleware
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 app.use(express.json());
-// Serve up static assets (usually on heroku)
+app.use(express.urlencoded({ extended: true }));
 
+// Session configuration
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false, // Set to true in production with HTTPS
+    maxAge: 1000 * 60 * 60 * 24 // 24 hours
+  }
+}));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
-//Setting headers for CORS Policies
-app.use(function (req, res, next) {
+// Passport config
+require('./config/passport')(passport);
 
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Credentials");
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-  res.header("Access-Control-Allow-Credentials", "true");
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/nextjs-mongo-passport-template')
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.log('MongoDB connection error:', err));
 
-  next();
-});
-
-
-// Add routes, both API and view
+// Routes
 app.use(routes);
 
-// Connect to the Mongo DB
-const connection = (process.env.NODE_ENV === "production" ? process.env.mongo_uri : process.env.mongo_uri);
 
-if (process.env.NODE_ENV === "production") {
-  mongoose.connect(connection)
-    .then(() => console.log("Database Connected Successfully"))
-    .catch(err => console.log(err));
-} else {
-  mongoose.connect("mongodb://127.0.0.1/nextjs-mongo-passport-template");
-}
-
-// Start the API server
-app.listen(PORT, function () {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+// Basic route for testing
+app.get('/', (req, res) => {
+  res.json({ message: 'Next.js Mongo Passport Template Backend' });
 });
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+}); 

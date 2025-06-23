@@ -1,4 +1,5 @@
 const db = require("../models");
+const passport = require('passport');
 
 require('dotenv').config();
 
@@ -33,8 +34,6 @@ const smtpTransport = nodemailer.createTransport({
     auth: {
         type: "OAuth2",
         user: "applications.nickramsay@gmail.com",
-        //user: gmailUserId,
-        //pass: gmailPassword,
         clientId: gmailClientId,
         clientSecret: gmailClientSecret,
         refreshToken: gmailRefreshToken,
@@ -42,9 +41,37 @@ const smtpTransport = nodemailer.createTransport({
     }
 });
 
-let useGmail = true;
-
 module.exports = {
+
+    login:(req, res, next) => {
+        console.log(req.body);
+      passport.authenticate('local', (err, user, info) => {
+        console.log(err);
+        if (err) {
+          return res.status(500).json({ message: 'Server error during login' });
+        }
+        
+        if (!user) {
+          return res.status(400).json({ message: info.message || 'Login failed' });
+        }
+        
+        req.logIn(user, (err) => {
+          if (err) {
+            return res.status(500).json({ message: 'Session error' });
+          }
+          
+          return res.json({
+            message: 'Login successful',
+            user: {
+              id: user._id,
+              name: user.name,
+              email: user.email
+            }
+          });
+        });
+      })(req, res, next);
+    },
+    logout: () => { },
     sendEmail: function (req, res) {
         console.log("Called send test e-mail controller...");
 
@@ -64,16 +91,16 @@ module.exports = {
     },
     createAccount: function (req, res) {
         console.log("Called Create Account controller");
-        db.Accounts
+        db.User
             .create(req.body)
             .then(dbModel => res.json(dbModel))
             .then(console.log(req.body))
             .catch(err => res.status(422).json(err));
     },
     checkExistingAccountEmails: function (req, res) {
-        console.log("Called check accounts controller...");
+        console.log("Called check User controller...");
         console.log(req.body);
-        db.Accounts
+        db.User
             .find({ email: req.body[0] }, { email: 1, _id: 0 }).sort({})
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
@@ -82,8 +109,8 @@ module.exports = {
         console.log("Called check set e-mail verification token controller...");
         let email = req.body.email;
         let emailVerificationToken = Math.floor((Math.random() * 999999) + 100000).toString();
-        
-        db.AccountCreationRequests
+
+        db.UserCreationRequests
             .replaceOne({ email: email }, { email: email, emailVerificationToken: emailVerificationToken }, { upsert: true })
             .then(dbModel => {
                 res.json(dbModel[0]),
@@ -104,7 +131,7 @@ module.exports = {
         let resetToken = Math.floor((Math.random() * 999999) + 100000).toString();
         console.log(resetToken);
 
-        db.Accounts
+        db.User
             .updateOne({ email: req.body[0] }, { passwordResetToken: sha256(resetToken) })
             .then(dbModel => {
                 res.json(dbModel[0]),
@@ -123,7 +150,7 @@ module.exports = {
     checkEmailAndToken: function (req, res) {
         console.log("Called check email and token controller...");
         console.log(req.body);
-        db.Accounts
+        db.User
             .find({ email: req.body.email, passwordResetToken: req.body.resetToken }, { email: 1 })
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
@@ -131,49 +158,9 @@ module.exports = {
     resetPassword: function (req, res) {
         console.log("Called reset password controller...");
         console.log(req.body);
-        db.Accounts
+        db.User
             .updateOne({ email: req.body.email }, { password: req.body.newPassword, passwordResetToken: null })
             .then(dbModel => res.json(dbModel[0]))
             .catch(err => res.status(422).json(err));
-    },
-    login: function (req, res) {
-        console.log("Called login controller...");
-        console.log(req.body);
-
-        db.Accounts
-            .find({ email: req.body.email, password: req.body.password }, { _id: 1 })
-            .then(dbModel => res.json(dbModel[0]))
-            .catch(err => res.status(422).json(err));
-    },
-    setSessionAccessToken: function (req, res) {
-        console.log("Called session token set controller...");
-        console.log(req.body);
-
-        let sessionAccessToken = Math.floor((Math.random() * 999999) + 100000).toString();
-
-        db.Accounts
-            .updateOne({ _id: req.body.id }, { sessionAccessToken: sha256(sessionAccessToken) })
-            .then(dbModel => {
-                res.json({
-                    dbModel: dbModel[0],
-                    sessionAccessToken: sha256(sessionAccessToken)
-                });
-            })
-            .catch(err => res.status(422).json(err));
-    },
-    fetchAccountDetails: function (req, res) {
-        console.log("Called fetch account details controller...");
-        console.log(req.body);
-        db.Accounts
-            .find({ _id: req.body.id }, { password: 0, sessionAccessToken: 0, passwordResetToken: 0, _id: 0 }).sort({})
-            .then(dbModel => res.json(dbModel[0]))
-            .catch(err => res.status(422).json(err));
-    },
-    testBackendToken: function (req, res) {
-        console.log("Called test token controller!");
-        var testToken;
-        testToken = Math.floor(Math.random() * 100000);
-        var testJSON = { body: testToken };
-        res.json(testJSON);
     }
 };
