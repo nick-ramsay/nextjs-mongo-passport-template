@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = process.env.NODE_ENV === 'production' ? '' : '//localhost:3001'
+const apiURL = process.env.NODE_ENV === 'production' ? 'http://nextjs-mongo-passport-template.vercel.app' : '//localhost:3001'
 
 // Create axios instance with credentials
 const api = axios.create({
