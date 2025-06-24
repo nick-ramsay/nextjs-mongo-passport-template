@@ -16,6 +16,7 @@ const requireAuth = (req, res, next) => {
 
 router.post('/login', nmptController.login);
 router.post('/logout', nmptController.logout);
+router.get('/user', nmptController.getUser);
 
 //AUTHENTICATION_ROUTES END
 

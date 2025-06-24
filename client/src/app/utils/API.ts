@@ -16,6 +16,10 @@ export default {
         const response = await api.post('/api/next-js-mongo-passport-template/login', { email, password })
         return response.data
     },
+    async logout() {
+        const response = await api.post('/api/next-js-mongo-passport-template/logout')
+        return response.data
+    },
     async getCurrentUser() {
         const response = await api.get('/api/next-js-mongo-passport-template/user')
         return response.data

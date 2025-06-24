@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { sha256 } from 'js-sha256';
 import API from '../utils/API';
+import { checkAuthStatus } from '../shared-functions/shared-functions';
 
 export default function Home() {
   const [user, setUser] = useState();
@@ -11,25 +12,16 @@ export default function Home() {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    checkAuthStatus()
+    checkAuthStatus(loading, setLoading, setUser)
   }, [])
 
-  const checkAuthStatus = async () => {
-    try {
-      const userData = await API.getCurrentUser()
-      console.log(userData);
-      setUser(userData.user)
-    } catch (error) {
-      console.log('Not authenticated')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const handleLogin = async (email: string, password: string) => {
     try {
       const response = await API.login(email, password)
-      setUser(response.user)
+      console.log("User Response: " + response.user);
+      setUser(response.user);
+      window.location.href = '/';
       return { success: true }
     } catch (error: any) {
       return { success: false, message: error.response?.data?.message || 'Login failed' }

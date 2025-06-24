@@ -43,35 +43,55 @@ const smtpTransport = nodemailer.createTransport({
 
 module.exports = {
 
-    login:(req, res, next) => {
+    login: (req, res, next) => {
         console.log(req.body);
-      passport.authenticate('local', (err, user, info) => {
-        console.log(err);
-        if (err) {
-          return res.status(500).json({ message: 'Server error during login' });
-        }
-        
-        if (!user) {
-          return res.status(400).json({ message: info.message || 'Login failed' });
-        }
-        
-        req.logIn(user, (err) => {
-          if (err) {
-            return res.status(500).json({ message: 'Session error' });
-          }
-          
-          return res.json({
-            message: 'Login successful',
-            user: {
-              id: user._id,
-              name: user.name,
-              email: user.email
+        passport.authenticate('local', (err, user, info) => {
+            console.log(err);
+            if (err) {
+                return res.status(500).json({ message: 'Server error during login' });
             }
-          });
-        });
-      })(req, res, next);
+
+            if (!user) {
+                return res.status(400).json({ message: info.message || 'Login failed' });
+            }
+
+            req.logIn(user, (err) => {
+                if (err) {
+                    return res.status(500).json({ message: 'Session error' });
+                }
+
+                return res.json({
+                    message: 'Login successful',
+                    user: {
+                        id: user._id,
+                        name: user.name,
+                        email: user.email
+                    }
+                });
+            });
+        })(req, res, next);
     },
-    logout: () => { },
+    logout: (req, res) => {
+        req.logout((err) => {
+            if (err) {
+                return res.status(500).json({ message: 'Logout error' });
+            }
+            res.json({ message: 'Logout successful' });
+        });
+    },
+    getUser: (req, res) => {
+        if (req.isAuthenticated()) {
+            res.json({
+                user: {
+                    id: req.user._id,
+                    name: req.user.name,
+                    email: req.user.email
+                }
+            });
+        } else {
+            res.status(401).json({ message: 'Not authenticated' });
+        }
+    },
     sendEmail: function (req, res) {
         console.log("Called send test e-mail controller...");
 
