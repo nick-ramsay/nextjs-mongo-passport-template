@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = process.env.NODE_ENV === 'production' ? 'https://nmpt-server-805c6f256a1e.herokuapp.com/' : '//localhost:3001'
+const apiURL = process.env.NODE_ENV === 'production' ? 'https://nmpt-server-805c6f256a1e.herokuapp.com' : '//localhost:3001'
 
 // Create axios instance with credentials
 const api = axios.create({
