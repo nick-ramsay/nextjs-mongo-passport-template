@@ -6,8 +6,8 @@ export const checkAuthStatus = async (loading, setLoading, setUser) => {
     const userData = await API.getCurrentUser()
     setUser(userData.user)
   } catch (error) {
-    if (window.location.pathname !== '/login') {
-      window.location.href = './login';
+    if (window.location.pathname !== '/') {
+      window.location.href = './';
     }
     console.log('Not authenticated');
   } finally {
