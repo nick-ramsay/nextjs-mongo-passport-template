@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = process.env.NODE_ENV === 'production' ? 'http://api.nextjs-mongo-passport-template.com/' : '//localhost:3001'
+const apiURL = process.env.NODE_ENV === 'production' ? 'https://api.nextjs-mongo-passport-template.com/' : '//localhost:3001'
 
 // Create axios instance with credentials
 const api = axios.create({
