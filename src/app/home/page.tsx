@@ -5,12 +5,12 @@ import API from '../utils/API';
 import { checkAuthStatus } from '../shared-functions/shared-functions';
 
 export default function CreateAccount() {
-  const [user, setUser] = useState({email:""});
+  const [user, setUser] = useState({id:"", email:""});
   const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
-    checkAuthStatus(loading, setLoading, setUser)
+    checkAuthStatus(loading, setLoading, setUser).then()
   }, [])
 
   return (
