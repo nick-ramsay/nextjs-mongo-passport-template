@@ -10,6 +10,5 @@ export const checkAuthStatus = async (loading, setLoading) => {
     }
     console.log('Not authenticated');
   } finally {
-    setLoading(false)
   }
 }
