@@ -9,7 +9,7 @@ export default function CreateAccount() {
   const [loading, setLoading] = useState(true);
 
   const fetchUser = () => {
-    API.getCurrentUser().then(res => { setUser(user => res.user); });
+    API.getCurrentUser().then(res => { setUser(user => res.user); setLoading(loading => false}; );
   };
 
 
