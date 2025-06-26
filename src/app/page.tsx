@@ -8,21 +8,18 @@ import { checkAuthStatus } from './shared-functions/shared-functions';
 import GithubLogo from "./images/GitHub_Lockup_Light.png";
 
 export default function Home() {
-  const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    checkAuthStatus(loading, setLoading, setUser)
+    checkAuthStatus(loading, setLoading)
   }, [])
 
 
   const handleLogin = async (email: string, password: string) => {
     try {
       const response = await API.login(email, password)
-      //console.log(response.user);
-      setUser(response.user);
       window.location.href = '/home';
       return { success: true }
     } catch (error: any) {
