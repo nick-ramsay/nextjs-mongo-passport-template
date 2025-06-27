@@ -1,19 +1,24 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
 import Image from 'next/image'
 import { sha256 } from 'js-sha256';
 import API from './utils/API';
-import { checkAuthStatus } from './shared-functions/shared-functions';
-import GithubLogo from "./images/GitHub_Lockup_Light.png";
+import { checkAuthStatus, getColorScheme } from './shared-functions/shared-functions';
+import GithubLogo from "./images/GitHub_Lockup_Light.png"
+import GitHubLogoLight from "./images/GitHub_Logo.png";
+import { get } from 'http';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [theme, setTheme] = useState("");
 
   useEffect(() => {
-    checkAuthStatus(loading, setLoading)
+    checkAuthStatus();
+    setTheme(getColorScheme())
   }, [])
 
 
@@ -31,7 +36,7 @@ export default function Home() {
 
   return (
     <div className="grid items-center justify-center h-screen w-screen">
-      <div className="grid-col-1 m-5 p-5 bg-gray-700 focus-green rounded text-center xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full mx-auto">
+      <div className="grid-col-1 m-5 p-5 bg-gray-200 shadow-lg shadow-gray-300 dark:shadow-none dark:bg-gray-700 focus-green rounded text-center xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full mx-auto">
         <h1 className="text-md font-bold mb-5">Next.js Mongo Passport Template</h1>
         <form onSubmit={handleLogin}>
           <div className='mt-3'>
@@ -54,7 +59,7 @@ export default function Home() {
       <div className="flex justify-center items-center m-5 p-5 max-w-m min-w-sm">
         <a target="_blank" href="http://www.github.com/nick-ramsay/nextjs-mongo-passport-template">
           <Image
-            src={GithubLogo}
+            src={theme === 'dark' ? GithubLogo: GitHubLogoLight}
             width={80}
             alt="GitHub Logo"
           />

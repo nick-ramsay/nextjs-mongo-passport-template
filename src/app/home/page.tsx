@@ -14,7 +14,7 @@ export default function CreateAccount() {
 
 
   useEffect(() => {
-    checkAuthStatus(loading, setLoading).then(fetchUser)
+    checkAuthStatus().then(fetchUser);
   }, [])
 
   return (
