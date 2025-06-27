@@ -9,13 +9,5 @@ export const checkAuthStatus = async () => {
       window.location.href = './';
     }
     console.log('Not authenticated');
-  } finally {
   }
 }
-
-export const getColorScheme = (): 'light' | 'dark' => {
-  if (typeof window !== 'undefined' && window.matchMedia) {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  return 'light'; // default fallback
-};

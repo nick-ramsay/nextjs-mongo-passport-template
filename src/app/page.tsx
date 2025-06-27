@@ -1,24 +1,19 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { useTheme } from 'next-themes';
 import Image from 'next/image'
 import { sha256 } from 'js-sha256';
 import API from './utils/API';
-import { checkAuthStatus, getColorScheme } from './shared-functions/shared-functions';
+import { checkAuthStatus } from './shared-functions/shared-functions';
 import GithubLogo from "./images/GitHub_Lockup_Light.png"
-import GitHubLogoLight from "./images/GitHub_Logo.png";
-import { get } from 'http';
+import GitHubLogoLight from "./images/GitHub_Lockup_Dark.png";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [theme, setTheme] = useState("");
 
   useEffect(() => {
     checkAuthStatus();
-    setTheme(getColorScheme())
   }, [])
 
 
@@ -59,10 +54,17 @@ export default function Home() {
       <div className="flex justify-center items-center m-5 p-5 max-w-m min-w-sm">
         <a target="_blank" href="http://www.github.com/nick-ramsay/nextjs-mongo-passport-template">
           <Image
-            src={theme === 'dark' ? GithubLogo: GitHubLogoLight}
+            className="block dark:hidden"
+            src={GitHubLogoLight}
             width={80}
             alt="GitHub Logo"
           />
+          <Image
+            className="hidden dark:block"
+            src={GithubLogo}
+            width={80}
+            alt="GitHub Logo"
+          /> 
         </a>
       </div>
     </div>
