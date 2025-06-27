@@ -1,16 +1,23 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
+import Navbar from '../components/Navbar';
 import API from '../utils/API';
 import { checkAuthStatus } from '../shared-functions/shared-functions';
 
 export default function CreateAccount() {
-  const [user, setUser] = useState({firstname:"", lastname: ""});
+  const [user, setUser] = useState({ firstname: "", lastname: "" });
   const [loading, setLoading] = useState(true);
 
   const fetchUser = () => {
-    API.getCurrentUser().then(res => { setUser(user => res.user); setLoading(loading => false); });
-  };
+    API.getCurrentUser().then(res => { setUser(user => res.user); setLoading(loading => false); }).catch(err => {
+      console.error("Error fetching user:", err.status);
+      if (err.status === 401) {
+        window.location.href = '/';
+      };
+    });
+
+  }
 
 
   useEffect(() => {
@@ -18,17 +25,17 @@ export default function CreateAccount() {
   }, [])
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        
-        {!loading ?
-          <div>
-            <h1 className="text-2xl font-bold mb-10">Next.js Mongo Passport Template</h1>
-            <p>Welcome, {user.firstname + " " + user.lastname}</p>
-            <button onClick={() => { API.logout(), window.location.href = "./"}}  className="mt-10">Logout</button>
-          </div>
-          : ""}
-      </main>
+    <div>
+      <Navbar />
+      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+          {!loading ?
+            <div>
+              <h1 className="text-2xl font-bold mb-10">Welcome, {user.firstname + " " + user.lastname}</h1>
+            </div>
+            : ""}
+        </main>
+      </div>
     </div>
   );
 }

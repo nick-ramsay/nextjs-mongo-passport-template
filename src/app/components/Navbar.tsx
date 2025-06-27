@@ -1,0 +1,117 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import API from '../utils/API';
+
+export default function Navbar() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    return (
+        <nav className="bg-white dark:bg-gray-900 shadow-md">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16">
+                    {/* Logo */}
+                    <div className="flex-shrink-0 flex items-center">
+                        <h1 className='text-xl font-bold text-gray-800 dark:text-gray-200'>
+                            Next Mongo Passport Template
+                        </h1>
+
+                    </div>
+
+                    {/* Hamburger Menu (Mobile) */}
+                    <div className="flex items-center sm:hidden">
+                        <button
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            type="button"
+                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                        >
+                            <svg
+                                className="h-6 w-6"
+                                stroke="currentColor"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                {isMenuOpen ? (
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                ) : (
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M4 6h16M4 12h16M4 18h16"
+                                    />
+                                )}
+                            </svg>
+                        </button>
+                    </div>
+
+                    {/* Desktop Menu */}
+                    <div className="hidden sm:flex sm:items-center sm:space-x-6">
+                        <Link href="/" className="text-gray-700 dark:text-gray-200 hover:text-blue-500">
+                            Home
+                        </Link>
+                        <div className="relative">
+                            <Link
+                                href="#"
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                className="text-gray-700 dark:text-gray-200 hover:text-blue-500 focus:outline-none"
+                            >
+                                Menu ▾
+                            </Link>
+                            {isDropdownOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-md z-10">
+                                    <Link href="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        Item 1
+                                    </Link>
+                                    <Link href="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        Item 2
+                                    </Link>
+                                    <Link href="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        Item 3
+                                    </Link>
+                                </div>
+                            )}
+                        </div>
+                        <button className={"button-red"} onClick={() => { API.logout(), window.location.href = "./" }}>Logout</button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Mobile Menu */}
+            {isMenuOpen && (
+                <div className="sm:hidden px-4 pb-4 space-y-2">
+                    <Link href="#" className="block text-gray-700 dark:text-gray-200 hover:text-blue-500">
+                        Example Link
+                    </Link>
+                    <Link href="#"
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className="block w-full text-left text-gray-700 dark:text-gray-200 hover:text-blue-500"
+                    >
+                        Menu ▾
+                    </Link>
+                    {isDropdownOpen && (
+                        <div className="ml-4 space-y-1">
+                            <Link href="#" className="block text-gray-600 dark:text-gray-300 hover:text-blue-500">
+                                Item 1
+                            </Link>
+                            <Link href="#" className="block text-gray-600 dark:text-gray-300 hover:text-blue-500">
+                                Item 2
+                            </Link>
+                            <Link href="#" className="block text-gray-600 dark:text-gray-300 hover:text-blue-500">
+                                Item 3
+                            </Link>
+                        </div>
+                    )}
+                    <button className="button-red" onClick={() => { API.logout(), window.location.href = "./" }}>Logout</button>
+                </div>
+            )}
+        </nav>
+    );
+}

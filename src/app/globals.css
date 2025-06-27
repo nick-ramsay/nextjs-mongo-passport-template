@@ -47,3 +47,12 @@ button:hover {
   @apply bg-green-900;
   cursor: pointer;
 }
+
+button.button-red {
+  @apply bg-red-800 pr-4 pl-4 pt-2 pb-2 text-white focus:outline-2 focus:outline-offset-2 focus:outline-red-800 active:bg-red-800 rounded-full
+}
+
+button.button-red:hover{
+  @apply bg-red-900;
+  cursor: pointer;
+}
