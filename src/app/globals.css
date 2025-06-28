@@ -34,25 +34,23 @@ a:hover {
 
 
 input {
- @apply dark:bg-gray-800 dark:hover:bg-gray-900 bg-white text-black dark:text-white pt-2 pb-2 pl-3 pr-3 w-full focus:outline-2 focus:outline-offset-2 focus:outline-green-800  rounded
+ @apply dark:bg-gray-800 dark:hover:bg-gray-900 bg-white text-black dark:text-white pt-2 pb-2 pl-3 pr-3 w-full focus:outline-2 focus:outline-offset-2 focus:outline-blue-500  rounded
 }
 
-
-
 button {
-  @apply bg-green-800 pr-4 pl-4 pt-2 pb-2 text-white focus:outline-2 focus:outline-offset-2 focus:outline-green-800 active:bg-green-800 rounded-full
+  @apply bg-blue-600 pr-4 pl-4 pt-2 pb-2 text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-800 active:bg-blue-800 rounded-full
 }
 
 button:hover {
-  @apply bg-green-900;
+  @apply bg-blue-700;
   cursor: pointer;
 }
 
-button.button-red {
-  @apply bg-red-800 pr-4 pl-4 pt-2 pb-2 text-white focus:outline-2 focus:outline-offset-2 focus:outline-red-800 active:bg-red-800 rounded-full
+button.button-rose {
+  @apply bg-rose-500 dark:bg-rose-800 pr-4 pl-4 pt-2 pb-2 text-white focus:outline-2 focus:outline-offset-2 focus:outline-rose-800 active:bg-rose-800 rounded-full
 }
 
-button.button-red:hover{
-  @apply bg-red-900;
+button.button-rose:hover{
+  @apply bg-rose-600 dark:bg-rose-900;
   cursor: pointer;
 }

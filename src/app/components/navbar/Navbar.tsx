@@ -2,14 +2,15 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import API from '../utils/API';
+import API from '../../utils/API';
+import './Navbar.css';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     return (
-        <nav className="bg-white dark:bg-gray-900 shadow-md">
+        <nav className="bg-neutral-100 dark:bg-gray-900 shadow-md">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     {/* Logo */}
@@ -25,7 +26,7 @@ export default function Navbar() {
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             type="button"
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                            className="hamburger inline-flex items-center justify-center p-2 rounded-md"
                         >
                             <svg
                                 className="h-6 w-6"
@@ -54,14 +55,14 @@ export default function Navbar() {
 
                     {/* Desktop Menu */}
                     <div className="hidden sm:flex sm:items-center sm:space-x-6">
-                        <Link href="/" className="text-gray-700 dark:text-gray-200 hover:text-blue-500">
+                        <Link href="/" className="navbar-item text-gray-700 dark:text-gray-200">
                             Home
                         </Link>
                         <div className="relative">
                             <Link
                                 href="#"
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                className="text-gray-700 dark:text-gray-200 hover:text-blue-500 focus:outline-none"
+                                className="navbar-item text-gray-700 dark:text-gray-200 focus:outline-none"
                             >
                                 Menu ▾
                             </Link>
@@ -79,37 +80,27 @@ export default function Navbar() {
                                 </div>
                             )}
                         </div>
-                        <button className={"button-red"} onClick={() => { API.logout(), window.location.href = "./" }}>Logout</button>
+                        <button className={"button-rose"} onClick={() => { API.logout(), window.location.href = "./" }}>Logout</button>
                     </div>
                 </div>
             </div>
 
             {/* Mobile Menu */}
             {isMenuOpen && (
-                <div className="sm:hidden px-4 pb-4 space-y-2">
-                    <Link href="#" className="block text-gray-700 dark:text-gray-200 hover:text-blue-500">
-                        Example Link
+                <div className="sm:hidden px-4 pb-4 dark:bg-gray-900 space-y-2">
+                    <Link href="#" className="navbar-item ml-2 mb-3 block text-gray-700 dark:text-gray-200">
+                        Home
                     </Link>
-                    <Link href="#"
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="block w-full text-left text-gray-700 dark:text-gray-200 hover:text-blue-500"
-                    >
-                        Menu ▾
+                    <Link href="#" className="navbar-item ml-2 mb-3 block text-gray-600 dark:text-gray-300">
+                        Item 1
                     </Link>
-                    {isDropdownOpen && (
-                        <div className="ml-4 space-y-1">
-                            <Link href="#" className="block text-gray-600 dark:text-gray-300 hover:text-blue-500">
-                                Item 1
-                            </Link>
-                            <Link href="#" className="block text-gray-600 dark:text-gray-300 hover:text-blue-500">
-                                Item 2
-                            </Link>
-                            <Link href="#" className="block text-gray-600 dark:text-gray-300 hover:text-blue-500">
-                                Item 3
-                            </Link>
-                        </div>
-                    )}
-                    <button className="button-red" onClick={() => { API.logout(), window.location.href = "./" }}>Logout</button>
+                    <Link href="#" className="navbar-item ml-2 mb-3 block text-gray-600 dark:text-gray-300">
+                        Item 2
+                    </Link>
+                    <Link href="#" className="navbar-item ml-2 mb-3 block text-gray-600 dark:text-gray-300">
+                        Item 3
+                    </Link>
+                    <button className="button-rose" onClick={() => { API.logout(), window.location.href = "./" }}>Logout</button>
                 </div>
             )}
         </nav>

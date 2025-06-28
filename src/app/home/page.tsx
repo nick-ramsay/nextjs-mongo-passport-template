@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/navbar/Navbar';
 import API from '../utils/API';
 import { checkAuthStatus } from '../shared-functions/shared-functions';
 
