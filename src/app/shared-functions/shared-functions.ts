@@ -3,17 +3,17 @@ import API from '../utils/API';
 
 export const checkAuthStatus = async () => {
   try {
-    if(window.location.pathname === '/') {
+    console.log('Trying auth check');
+    if(window.location.pathname === '/login') {
       const response = await API.getCurrentUser();
       if (response.user) {
-        window.location.href = '/home';
+        window.location.href = '/';
       }
     }
   } catch (error) {
     console.log('Not authenticated, redirecting to login');
-    if (window.location.pathname !== '/') {
-      
-      window.location.href = '/';
+    if (window.location.pathname !== '/login') {
+      window.location.href = '/login';
     }
     console.log('Not authenticated');
   }

@@ -80,7 +80,7 @@ export default function Navbar() {
                                 </div>
                             )}
                         </div>
-                        <button className={"button-rose"} onClick={() => { API.logout(), window.location.href = "./" }}>Logout</button>
+                        <button className={"button-rose"} onClick={() => { API.logout(), window.location.href = "./login" }}>Logout</button>
                     </div>
                 </div>
             </div>
