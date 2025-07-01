@@ -11,7 +11,7 @@ export default function CreateAccount() {
   const [loading, setLoading] = useState(true);
 
   const fetchUser = () => {
-    API.getCurrentUser().then(res => { setUser(user => res.user); setLoading(loading => false); }).catch(err => {
+    API.getCurrentUser(window.location.pathname).then(res => { setUser(user => res.user); setLoading(loading => false); }).catch(err => {
       console.error("Error fetching user:", err.status);
       if (err.status === 401) {
         window.location.href = '/login';
@@ -21,7 +21,7 @@ export default function CreateAccount() {
   }
 
   useEffect(() => {
-    checkAuthStatus().then(fetchUser);
+    checkAuthStatus(window.location.pathname).then(fetchUser);
   }, [])
 
   if (loading) {
