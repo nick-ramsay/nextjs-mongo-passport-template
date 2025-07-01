@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/navbar/Navbar';
-import {RingLoader} from 'react-spinners';
+import { RingLoader } from 'react-spinners';
 import API from './utils/API';
 import { checkAuthStatus } from './shared-functions/shared-functions';
 
@@ -24,31 +24,25 @@ export default function CreateAccount() {
     checkAuthStatus().then(fetchUser);
   }, [])
 
-  return (
-    <div>
-      {!loading ?
-        <div>
-          <Navbar />
-          <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-            <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+  if (loading) {
+    return (
+      <div className="grid items-center justify-center h-screen w-screen">
+        <RingLoader loading={loading} color="#155dfc" />
+      </div>
 
-              <div>
-                <h1 className="text-2xl font-bold mb-10">Welcome, {user.firstname + " " + user.lastname}</h1>
-              </div>
-
-            </main>
-          </div>
-        </div>
-        : 
+    );
+  } else {
+    return (
+      <div>
+        <Navbar />
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
           <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-
-            <RingLoader loading={loading} color="#155dfc" />
-
+            <div>
+              <h1 className="text-2xl font-bold mb-10">Welcome, {user.firstname + " " + user.lastname}</h1>
+            </div>
           </main>
         </div>
-
-      }
-    </div>
-  );
+      </div>
+    );
+  }
 }

@@ -20,8 +20,8 @@ export default {
         const response = await api.post('/api/next-js-mongo-passport-template/logout')
         return response.data
     },
-    async getCurrentUser() {
-        const response = await api.get('/api/next-js-mongo-passport-template/user')
+    async getCurrentUser(currentPath: string) {
+        const response = await api.get('/api/next-js-mongo-passport-template/user', { params: { currentPath } })
         return response.data
     },
     sendEmail(messageInfo: any) {

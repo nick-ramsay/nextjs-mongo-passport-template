@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import API from '../utils/API';
 
-export const checkAuthStatus = async () => {
+export const checkAuthStatus = async (currentPath: string) => {
+  console.log(currentPath);
   try {
-    console.log('Trying auth check');
-    if(window.location.pathname === '/login') {
-      const response = await API.getCurrentUser();
+    if (currentPath === '/login') {
+      const response = await API.getCurrentUser(currentPath);
       if (response.user) {
         window.location.href = '/';
+        return response;
       }
       return response;
     }
   } catch (error) {
     console.log('Not authenticated, redirecting to login');
-    if (window.location.pathname !== '/login') {
+    if (currentPath !== '/login') {
       window.location.href = '/login';
     }
-    console.log('Not authenticated');
   }
 }
