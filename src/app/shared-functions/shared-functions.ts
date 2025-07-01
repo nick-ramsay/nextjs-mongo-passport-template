@@ -9,6 +9,7 @@ export const checkAuthStatus = async () => {
       if (response.user) {
         window.location.href = '/';
       }
+      return response;
     }
   } catch (error) {
     console.log('Not authenticated, redirecting to login');
