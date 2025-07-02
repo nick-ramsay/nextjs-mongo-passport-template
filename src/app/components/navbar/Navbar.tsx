@@ -5,16 +5,23 @@ import Link from 'next/link';
 import API from '../../utils/API';
 import './Navbar.css';
 
-export default function Navbar() {
+type NavbarProps = {
+    loading: boolean;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+
+};
+
+export default function Navbar({ loading, setLoading }: NavbarProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const handleLogout = async () => {
         try {
-            console.log("Logging out...");
+            setLoading(true)
             await API.logout();
             window.location.href = '/login';
         } catch (error) {
+            setLoading(false)
             console.error("Logout failed:", error);
         }
     };

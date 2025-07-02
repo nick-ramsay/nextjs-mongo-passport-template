@@ -9,7 +9,6 @@ import { checkAuthStatus } from './shared-functions/shared-functions';
 export default function CreateAccount() {
   const [user, setUser] = useState({ firstname: "", lastname: "" });
   const [loading, setLoading] = useState(true);
-
   const fetchUser = () => {
     API.getCurrentUser(window.location.pathname).then(res => { setUser(user => res.user); setLoading(loading => false); }).catch(err => {
       console.error("Error fetching user:", err.status);
@@ -35,7 +34,7 @@ export default function CreateAccount() {
   } else {
     return (
       <div>
-        <Navbar />
+        <Navbar loading={loading} setLoading={setLoading} />
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
           <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
             <div>
