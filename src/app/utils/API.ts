@@ -2,7 +2,6 @@ import axios from "axios";
 
 const apiURL = process.env.NODE_ENV === 'production' ? 'https://api.nextjs-mongo-passport-template.com' : '//localhost:3001'
 
-// Create axios instance with credentials
 const api = axios.create({
     baseURL: apiURL,
     withCredentials: true,
@@ -24,25 +23,32 @@ export default {
         const response = await api.get('/api/next-js-mongo-passport-template/user', { params: { currentPath } })
         return response.data
     },
-    sendEmail(messageInfo: any) {
-        return axios({ method: "post", url: apiURL + "/api/next-js-mongo-passport-template/send-email", data: [messageInfo] });
+    async sendEmail(messageInfo: any) {
+        const response = await api.post('/api/next-js-mongo-passport-template/send-email', messageInfo)
+        return response.data
     },
-    createAccount(newAccountInfo: any) {
-        return axios({ method: "post", url: apiURL + "/api/next-js-mongo-passport-template/create-account", data: newAccountInfo })
+    async createAccount(newAccountInfo: any) {
+        const response = await api.post('/api/next-js-mongo-passport-template/create-account', newAccountInfo)
+        return response.data
     },
-    setEmailVerificationToken(email: any) {
-        return axios({ method: "post", url: apiURL + "/api/next-js-mongo-passport-template/set-email-verification-token", data: { email: email } })
+    async setEmailVerificationToken(email: any) {
+        const response = await api.post('/api/next-js-mongo-passport-template/set-email-verification-token', { email })
+        return response.data
     },
-    checkExistingAccountEmails(email: any) {
-        return axios({ method: "post", url: apiURL + "/api/next-js-mongo-passport-template/check-existing-account-emails", data: [email] });
+    async checkExistingAccountEmails(email: any) {
+        const response = await api.post('/api/next-js-mongo-passport-template/check-existing-account-emails', [email])
+        return response.data
     },
-    setEmailResetCode(email: any, generatedResetToken: any) {
-        return axios({ method: "post", url: apiURL + "/api/next-js-mongo-passport-template/reset-password-request", data: [email, generatedResetToken] });
+    async setEmailResetCode(email: any, generatedResetToken: any) {
+        const response = await api.post('/api/next-js-mongo-passport-template/reset-password-request', { email, generatedResetToken })
+        return response.data
     },
-    checkEmailAndResetToken(email: any, resetToken: any) {
-        return axios({ method: "post", url: apiURL + "/api/next-js-mongo-passport-template/check-email-and-reset-token", data: { email: email, resetToken: resetToken } });
+    async checkEmailAndResetToken(email: any, resetToken: any) {
+        const response = await api.post('/api/next-js-mongo-passport-template/check-email-and-reset-token', { email, resetToken })
+        return response.data
     },
-    resetPassword(email: any, newPassword: any) {
-        return axios({ method: "post", url: apiURL + "/api/next-js-mongo-passport-template/reset-password", data: { email: email, newPassword: newPassword } });
+    async resetPassword(email: any, newPassword: any) {
+        const response = await api.post('/api/next-js-mongo-passport-template/reset-password', { email, newPassword })
+        return response.data
     },
 }

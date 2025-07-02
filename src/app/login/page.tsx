@@ -47,7 +47,7 @@ export default function Home() {
   else {
     return (
       <div className="grid items-center justify-center h-screen w-screen">
-        <div className="grid-col-1 m-5 p-5 bg-gray-200 shadow-lg shadow-gray-300 dark:shadow-none dark:bg-gray-700 focus-green rounded text-center xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full mx-auto">
+        <div className="form-card xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full">
           <h1 className="text-md font-bold mb-5">Next.js Mongo Passport Template</h1>
           <form onSubmit={handleLogin}>
             <div className='mt-3'>

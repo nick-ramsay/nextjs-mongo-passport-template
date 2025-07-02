@@ -2,6 +2,11 @@
 
 import React, { useState } from 'react';
 import API from "../utils/API";
+import { RingLoader } from 'react-spinners';
+import Image from 'next/image'
+import GithubLogo from "../images/GitHub_Lockup_Light.png"
+import GitHubLogoLight from "../images/GitHub_Lockup_Dark.png";
+
 
 export default function CreateAccount() {
   const [email, setEmail] = useState("");
@@ -11,19 +16,20 @@ export default function CreateAccount() {
     if (email !== null && email.includes("@") && email.includes(".")) {
       API.checkExistingAccountEmails(email)
         .then(res => {
-          if (res.data !== "") {
+          console.log(res.data);
+          if (res.data !== "" && res.data !== undefined) {
+            console.log(res.data);
             alert("Looks like an account already exists with this e-mail. Try logging in.");
           } else {
             API.setEmailVerificationToken(email)
               .then(res => {
+                console.log(res.data);
                 window.location.href = "./create-account"
               })
           }
         }
         );
 
-
-      console.log(email);
     } else {
       alert("Invalid email. Please try again.")
       setEmail(email => "");
@@ -32,15 +38,36 @@ export default function CreateAccount() {
   }
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <h1 className="text-2xl font-bold">Next.js Mongo Passport Template</h1>
+    <div className="grid items-center justify-center h-screen w-screen">
+      <div className="form-card xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full">
+        <h1 className="text-md font-bold mb-5">Next.js Mongo Passport Template</h1>
         <p>Request to Create an Account</p>
-        <input placeholder="Enter email" type="text" onChange={(e) => setEmail(e.target.value)} value={email}></input>
-        <button onClick={() => submitRequest(email)}>Request an Account</button>
-      </main>
+        <form>
+          <div className='mt-3'>
+            <input placeholder="Enter email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
+          </div>
+          <div className='mt-6'>
+            <button onClick={() => submitRequest(email)}>Request an Account</button>
+          </div>
+        </form>
+      </div>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a target="_blank" href="http://www.github.com/nick-ramsay/nextjs-mongo-passport-template">GitHub</a>
+        <div className="flex justify-center items-center m-5 p-5 max-w-m min-w-sm">
+          <a target="_blank" href="http://www.github.com/nick-ramsay/nextjs-mongo-passport-template">
+            <Image
+              className="block dark:hidden"
+              src={GitHubLogoLight}
+              width={80}
+              alt="GitHub Logo"
+            />
+            <Image
+              className="hidden dark:block"
+              src={GithubLogo}
+              width={80}
+              alt="GitHub Logo"
+            />
+          </a>
+        </div>
       </footer>
     </div>
   );

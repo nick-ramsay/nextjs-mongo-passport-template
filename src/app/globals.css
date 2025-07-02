@@ -37,6 +37,10 @@ input {
  @apply dark:bg-gray-800 dark:hover:bg-gray-900 bg-white text-black dark:text-white pt-2 pb-2 pl-3 pr-3 w-full focus:outline-2 focus:outline-offset-2 focus:outline-blue-500  rounded
 }
 
+.form-card {
+  @apply grid-cols-1 m-5 p-5 bg-gray-200 shadow-lg shadow-gray-300 dark:shadow-none dark:bg-gray-700 rounded text-center mx-auto
+}
+
 button {
   @apply bg-blue-600 pr-4 pl-4 pt-2 pb-2 text-white focus:outline-2 focus:outline-offset-2 focus:outline-blue-800 active:bg-blue-800 rounded-full
 }
