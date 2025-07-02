@@ -9,6 +9,16 @@ export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+    const handleLogout = async () => {
+        try {
+            console.log("Logging out...");
+            await API.logout();
+            window.location.href = '/login';
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+
     return (
         <nav className="bg-neutral-100 dark:bg-gray-900 shadow-md">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,7 +90,7 @@ export default function Navbar() {
                                 </div>
                             )}
                         </div>
-                        <button className={"button-rose"} onClick={() => { API.logout(), window.location.href = "./login" }}>Logout</button>
+                        <button className={"button-rose"} onClick={() => handleLogout()}>Logout</button>
                     </div>
                 </div>
             </div>
@@ -100,7 +110,7 @@ export default function Navbar() {
                     <Link href="#" className="navbar-item ml-2 mb-3 block text-gray-600 dark:text-gray-300">
                         Item 3
                     </Link>
-                    <button className="button-rose" onClick={() => { API.logout(), window.location.href = "./" }}>Logout</button>
+                    <button className="button-rose" onClick={() => { handleLogout() }}>Logout</button>
                 </div>
             )}
         </nav>

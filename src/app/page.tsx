@@ -22,6 +22,7 @@ export default function CreateAccount() {
 
   useEffect(() => {
     checkAuthStatus(window.location.pathname).then(fetchUser);
+    
   }, [])
 
   if (loading) {
