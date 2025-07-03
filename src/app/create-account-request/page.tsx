@@ -12,24 +12,19 @@ export default function CreateAccount() {
   const [email, setEmail] = useState("");
 
   const submitRequest = (email: string) => {
-    console.log(email.includes("@"));
     if (email !== null && email.includes("@") && email.includes(".")) {
       API.checkExistingAccountEmails(email)
         .then(res => {
-          console.log(res.data);
-          if (res.data !== "" && res.data !== undefined) {
-            console.log(res.data);
+          if (res !== "" && res !== undefined) {
             alert("Looks like an account already exists with this e-mail. Try logging in.");
           } else {
             API.setEmailVerificationToken(email)
               .then(res => {
-                console.log(res.data);
                 window.location.href = "./create-account"
               })
           }
         }
         );
-
     } else {
       alert("Invalid email. Please try again.")
       setEmail(email => "");
@@ -40,11 +35,11 @@ export default function CreateAccount() {
   return (
     <div className="grid items-center justify-center h-screen w-screen">
       <div className="form-card xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full">
-        <h1 className="text-md font-bold mb-5">Next.js Mongo Passport Template</h1>
-        <p>Request to Create an Account</p>
+        <h1 className="text-lg font-bold mb-5">Next.js Mongo Passport Template</h1>
         <form>
           <div className='mt-3'>
-            <input placeholder="Enter email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
+            <label className='font-semibold text-gray-300'>Email</label>
+            <input className='mt-1' placeholder="Enter email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
           </div>
           <div className='mt-6'>
             <button onClick={() => submitRequest(email)}>Request an Account</button>

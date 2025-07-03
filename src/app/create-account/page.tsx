@@ -29,13 +29,11 @@ export default function CreateAccount() {
     if (firstName !== "" && lastName !== "" && email !== "" && password !== "" && passwordConfirmation !== "" && password === passwordConfirmation) {
       API.checkExistingAccountEmails(currentAccountInfo.email)
         .then(res => {
-          if (res.data === "" || res.data === undefined) {
-
+          if (res === "" || res === undefined) {
             API.createAccount(currentAccountInfo).then(res => {
               window.location.href = "/";
             });
           } else {
-            console.log(res.data);
             alert("Sorry... an account already exists for this email.");
           }
         })
@@ -51,51 +49,56 @@ export default function CreateAccount() {
   return (
     <div className="grid items-center justify-center h-screen w-screen">
       <div className="form-card xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full">
-        <h1 className="text-md font-bold mb-5">Next.js Mongo Passport Template</h1>
-        <p>Create an Account</p>
+        <h1 className="text-lg font-bold mb-5">Next.js Mongo Passport Template</h1>
         <form>
-          <div className='mt-3'>
-            <input placeholder="Enter email verification code" type="text" onChange={(e) => setVerificationCode(e.target.value)}></input>
+          <div className='mt-2 text-sm'>
+            <label className='font-semibold text-gray-300'>Verification Code</label>
+            <input className="mt-1" placeholder="Enter email verification code" type="text" onChange={(e) => setVerificationCode(e.target.value)}></input>
           </div>
-          <div className='mt-3'>
-            <input placeholder="Enter first name" type="text" onChange={(e) => setFirstName(e.target.value)}></input>
+          <div className='mt-2 text-sm'>
+            <label className='font-semibold text-gray-300'>First Name</label>
+            <input className="mt-1" placeholder="Enter first name" type="text" onChange={(e) => setFirstName(e.target.value)}></input>
           </div>
-          <div className='mt-3'>
-            <input placeholder="Enter last name" type="text" onChange={(e) => setLastName(e.target.value)}></input>
+          <div className='mt-2 text-sm'>
+            <label className='font-semibold text-gray-300'>Last Name</label>
+            <input className="mt-1" placeholder="Enter last name" type="text" onChange={(e) => setLastName(e.target.value)}></input>
           </div>
-          <div className='mt-3'>
-            <input placeholder="Enter email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
+          <div className='mt-2 text-sm'>
+            <label className='font-semibold text-gray-300'>Email</label>
+            <input className="mt-1" placeholder="Enter email" type="email" onChange={(e) => setEmail(e.target.value.toLowerCase())}></input>
           </div>
-          <div className='mt-3'>
-            <input placeholder="Enter new password" type="password" onChange={(e) => setPassword(e.target.value)}></input>
+          <div className='mt-2 text-sm'>
+            <label className='font-semibold text-gray-300'>Password</label>
+            <input className="mt-1" placeholder="Enter new password" type="password" onChange={(e) => setPassword(e.target.value)}></input>
           </div>
-          <div className='mt-3'>
-            <input placeholder="Confirm new password" type="password" onChange={(e) => setPasswordConfirmation(e.target.value)}></input>
+          <div className='mt-2 text-sm'>
+            <label className='font-semibold text-gray-300'>Confirm Password</label>
+            <input className="mt-1" placeholder="Confirm new password" type="password" onChange={(e) => setPasswordConfirmation(e.target.value)}></input>
           </div>
           <div className='mt-6'>
             <button onClick={() => createNewAccount()}>Create Account</button>
           </div>
         </form>
-        
+
       </div>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-          <div className="flex justify-center items-center m-5 p-5 max-w-m min-w-sm">
-            <a target="_blank" href="http://www.github.com/nick-ramsay/nextjs-mongo-passport-template">
-              <Image
-                className="block dark:hidden"
-                src={GitHubLogoLight}
-                width={80}
-                alt="GitHub Logo"
-              />
-              <Image
-                className="hidden dark:block"
-                src={GithubLogo}
-                width={80}
-                alt="GitHub Logo"
-              />
-            </a>
-          </div>
-        </footer>
+        <div className="flex justify-center items-center m-5 p-5 max-w-m min-w-sm">
+          <a target="_blank" href="http://www.github.com/nick-ramsay/nextjs-mongo-passport-template">
+            <Image
+              className="block dark:hidden"
+              src={GitHubLogoLight}
+              width={80}
+              alt="GitHub Logo"
+            />
+            <Image
+              className="hidden dark:block"
+              src={GithubLogo}
+              width={80}
+              alt="GitHub Logo"
+            />
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }
