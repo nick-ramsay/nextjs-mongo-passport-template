@@ -14,10 +14,8 @@ export default function CreateAccount() {
   const submitRequest = (email: string, event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (email !== null && email.includes("@") && email.includes(".")) {
-      console.log("Requesting account for: " + email);
       API.checkExistingAccountEmails(email)
         .then(res => {
-          console.log(res);
           if (res !== "" && res !== undefined) {
             alert("Looks like an account already exists with this e-mail. Try logging in.");
           } else {
