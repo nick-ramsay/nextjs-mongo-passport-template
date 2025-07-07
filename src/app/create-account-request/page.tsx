@@ -36,13 +36,13 @@ export default function CreateAccount() {
     <div className="grid items-center justify-center h-screen w-screen">
       <div className="form-card xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full">
         <h1 className="text-lg font-bold mb-5">Next.js Mongo Passport Template</h1>
-        <form>
+        <form onSubmit={() => submitRequest(email)}>
           <div className='mt-3'>
             <label className='font-semibold text-gray-300'>Email</label>
             <input className='mt-1' placeholder="Enter email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
           </div>
           <div className='mt-6'>
-            <button onClick={() => submitRequest(email)}>Request an Account</button>
+            <button type='submit'>Request an Account</button>
           </div>
         </form>
       </div>
