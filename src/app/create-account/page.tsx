@@ -17,8 +17,8 @@ export default function CreateAccount() {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
 
-  const createNewAccount = () => {
-
+  const createNewAccount = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     let currentAccountInfo = {
       email: email,
       firstname: firstName,
@@ -50,7 +50,7 @@ export default function CreateAccount() {
     <div className="grid items-center justify-center h-screen w-screen">
       <div className="form-card xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full">
         <h1 className="text-lg font-bold mb-5">Next.js Mongo Passport Template</h1>
-        <form onSubmit={() => createNewAccount()}>
+        <form onSubmit={(event) => createNewAccount(event)}>
           <div className='mt-2 text-sm'>
             <label className='font-semibold text-gray-300'>Verification Code</label>
             <input className="mt-1" placeholder="Enter email verification code" type="text" onChange={(e) => setVerificationCode(e.target.value)}></input>

@@ -11,10 +11,13 @@ import GitHubLogoLight from "../images/GitHub_Lockup_Dark.png";
 export default function CreateAccount() {
   const [email, setEmail] = useState("");
 
-  const submitRequest = (email: string) => {
+  const submitRequest = (email: string, event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (email !== null && email.includes("@") && email.includes(".")) {
+      console.log("Requesting account for: " + email);
       API.checkExistingAccountEmails(email)
         .then(res => {
+          console.log(res);
           if (res !== "" && res !== undefined) {
             alert("Looks like an account already exists with this e-mail. Try logging in.");
           } else {
@@ -36,7 +39,7 @@ export default function CreateAccount() {
     <div className="grid items-center justify-center h-screen w-screen">
       <div className="form-card xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full">
         <h1 className="text-lg font-bold mb-5">Next.js Mongo Passport Template</h1>
-        <form onSubmit={() => submitRequest(email)}>
+        <form onSubmit={(event) => submitRequest(email, event)}> 
           <div className='mt-3'>
             <label className='font-semibold text-gray-300'>Email</label>
             <input className='mt-1' placeholder="Enter email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
