@@ -49,33 +49,33 @@ export default function CreateAccount() {
   return (
     <div className="grid items-center justify-center h-screen w-screen">
       <div className="form-card xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full">
-        <h1 className="text-lg font-bold mb-5">Next.js Mongo Passport Template</h1>
+        <h1 className="text-lg font-bold mb-5 text-center">Next.js Mongo Passport Template</h1>
         <form onSubmit={(event) => createNewAccount(event)}>
           <div className='mt-2 text-sm'>
-            <label className='font-semibold text-gray-300'>Verification Code</label>
+            <label className='font-semibold dark:text-gray-300 text-gray-700'>Verification Code</label>
             <input className="mt-1" placeholder="Enter email verification code" type="text" onChange={(e) => setVerificationCode(e.target.value)}></input>
           </div>
-          <div className='mt-2 text-sm'>
-            <label className='font-semibold text-gray-300'>First Name</label>
+          <div className='mt-4 text-sm'>
+            <label className='font-semibold dark:text-gray-300 text-gray-700'>First Name</label>
             <input className="mt-1" placeholder="Enter first name" type="text" onChange={(e) => setFirstName(e.target.value)}></input>
           </div>
-          <div className='mt-2 text-sm'>
-            <label className='font-semibold text-gray-300'>Last Name</label>
+          <div className='mt-4 text-sm'>
+            <label className='font-semibold dark:text-gray-300 text-gray-700'>Last Name</label>
             <input className="mt-1" placeholder="Enter last name" type="text" onChange={(e) => setLastName(e.target.value)}></input>
           </div>
-          <div className='mt-2 text-sm'>
-            <label className='font-semibold text-gray-300'>Email</label>
+          <div className='mt-4 text-sm'>
+            <label className='font-semibold dark:text-gray-300 text-gray-700'>Email</label>
             <input className="mt-1" placeholder="Enter email" type="email" onChange={(e) => setEmail(e.target.value.toLowerCase())}></input>
           </div>
-          <div className='mt-2 text-sm'>
-            <label className='font-semibold text-gray-300'>Password</label>
+          <div className='mt-4 text-sm'>
+            <label className='font-semibold dark:text-gray-300 text-gray-700'>Password</label>
             <input className="mt-1" placeholder="Enter new password" type="password" onChange={(e) => setPassword(e.target.value)}></input>
           </div>
-          <div className='mt-2 text-sm'>
-            <label className='font-semibold text-gray-300'>Confirm Password</label>
+          <div className='mt-4 text-sm'>
+            <label className='font-semibold dark:text-gray-300 text-gray-700'>Confirm Password</label>
             <input className="mt-1" placeholder="Confirm new password" type="password" onChange={(e) => setPasswordConfirmation(e.target.value)}></input>
           </div>
-          <div className='mt-6'>
+          <div className='mt-6 text-center'>
             <button type='submit'>Create Account</button>
           </div>
         </form>

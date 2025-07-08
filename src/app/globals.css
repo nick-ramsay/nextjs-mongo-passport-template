@@ -38,7 +38,7 @@ input {
 }
 
 .form-card {
-  @apply grid-cols-1 m-5 p-5 bg-gray-200 shadow-lg shadow-gray-300 dark:shadow-none dark:bg-gray-700 rounded text-center mx-auto
+  @apply grid-cols-1 m-5 p-5 bg-gray-200 shadow-lg shadow-gray-300 dark:shadow-none dark:bg-gray-700 rounded mx-auto
 }
 
 button {

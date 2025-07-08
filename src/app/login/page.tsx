@@ -48,22 +48,22 @@ export default function Home() {
     return (
       <div className="grid items-center justify-center h-screen w-screen">
         <div className="form-card xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full">
-          <h1 className="text-md font-bold mb-5">Next.js Mongo Passport Template</h1>
+          <h1 className="text-md font-bold mb-5 text-center">Next.js Mongo Passport Template</h1>
           <form onSubmit={handleLogin}>
             <div className='mt-3'>
               <input placeholder="Enter email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
             </div>
             <div className='mt-3'>
               <input placeholder="Enter password" type="password" onChange={(e) => setPassword(sha256(e.target.value))}></input>
-              <div className='mt-5'>
+              <div className='mt-5 text-center'>
                 <button type="submit">Login</button>
               </div>
             </div>
           </form>
-          <div className='mt-5'>
+          <div className='mt-5 text-center'>
             <a href="./create-account-request">Create an Account</a>
           </div>
-          <div className='mt-1'>
+          <div className='mt-1 text-center'>
             <a href="./reset-password-request">Reset Password</a>
           </div>
         </div>
