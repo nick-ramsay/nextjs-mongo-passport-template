@@ -39,8 +39,8 @@ export default {
         const response = await api.post('/api/next-js-mongo-passport-template/check-existing-account-emails', [email])
         return response.data
     },
-    async setEmailResetCode(email: any, generatedResetToken: any) {
-        const response = await api.post('/api/next-js-mongo-passport-template/reset-password-request', { email, generatedResetToken })
+    async setEmailResetToken(email: any) {
+        const response = await api.post('/api/next-js-mongo-passport-template/reset-password-request', { email })
         return response.data
     },
     async checkEmailAndResetToken(email: any, resetToken: any) {

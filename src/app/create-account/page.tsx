@@ -49,7 +49,7 @@ export default function CreateAccount() {
   return (
     <div className="grid items-center justify-center h-screen w-screen">
       <div className="form-card xs-sm:w-96 x-sm:w-96 sm:w-96 md:w-full lg:w-full xl:w-full">
-        <h1 className="text-lg font-bold mb-5 text-center">Next.js Mongo Passport Template</h1>
+        <h1 className="text-md font-bold mb-5 text-center">Next.js Mongo Passport Template</h1>
         <form onSubmit={(event) => createNewAccount(event)}>
           <div className='mt-2 text-sm'>
             <label className='font-semibold dark:text-gray-300 text-gray-700'>Verification Code</label>
