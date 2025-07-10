@@ -47,8 +47,8 @@ export default {
         const response = await api.post('/api/next-js-mongo-passport-template/check-email-and-reset-token', { email, resetToken })
         return response.data
     },
-    async resetPassword(email: any, newPassword: any) {
-        const response = await api.post('/api/next-js-mongo-passport-template/reset-password', { email, newPassword })
+    async resetPassword(email: any, resetCode: any, newPassword: any) {
+        const response = await api.post('/api/next-js-mongo-passport-template/reset-password', { email, resetCode, newPassword })
         return response.data
     },
 }

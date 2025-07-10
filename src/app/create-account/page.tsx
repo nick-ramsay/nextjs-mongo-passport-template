@@ -31,7 +31,8 @@ export default function CreateAccount() {
         .then(res => {
           if (res === "" || res === undefined) {
             API.createAccount(currentAccountInfo).then(res => {
-              window.location.href = "/";
+              alert("Account created successfully! Please log in.");
+              window.location.href = "/login";
             });
           } else {
             alert("Sorry... an account already exists for this email.");
