@@ -15,7 +15,7 @@ export default function ResetPasswordRequest() {
     if (email !== null && email.includes("@") && email.includes(".")) {
       API.setEmailResetToken(email)
         .then((res) => {
-          if (res.ok == 1) {
+          if (res.acknowledged == true) {
             console.log("Password reset request submitted for:", email);
             window.location.href = '/reset-password';
           } else {
