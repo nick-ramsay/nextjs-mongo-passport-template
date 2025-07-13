@@ -39,4 +39,4 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 You can visit a deployed version of this application at https://www.nextjs-mongo-passport-template.com. The backend server for this application is deployed on Heroku at https://api.nextjs-mongo-passport-template.com/.
 
-Note that in order for the the server-side Passport.js authetication to work properly, it's important that the server which generates the Passport cookie shares the same domain name as the frontend application where the cookie is stored. This is why the host for both uses nextjs-mongo-passport-template.com.
+Note that in order for the the server-side Passport.js authetication to work properly, it's important that the server which generates the Passport cookie shares the same domain name as the frontend application where the cookie is stored. This is why the host for both uses `nextjs-mongo-passport-template.com`.
